@@ -5,15 +5,17 @@ import com.typesafe.sbt.SbtScalariform._
 
 object EnsimeBuild extends Build {
 
-  // TODO: what is the best way to have shared project settings instead of including this explicitly in every project?
-  lazy val common = scalariformSettings ++ Seq(
-    organization := "com.github.fommil",
-    scalaVersion := "2.11.7",
-    version := "0.9.10-SNAPSHOT",
-
+  lazy override val settings = super.settings ++ Seq(
     // sbt, STFU...
     ivyLoggingLevel := UpdateLogging.Quiet,
 
+    organization := "com.github.fommil",
+    scalaVersion := "2.11.7",
+    version := "0.9.10-SNAPSHOT"
+  )
+
+  // TODO: what is the best way to have shared project settings instead of including this explicitly in every project?
+  lazy val common = scalariformSettings ++ Seq(
     // WORKAROUND: https://github.com/sbt/sbt/issues/2286
     dependencyOverrides ++= Set(
       "org.scala-lang" % "scala-reflect" % scalaVersion.value,
