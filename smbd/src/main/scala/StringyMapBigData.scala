@@ -48,6 +48,20 @@ package object impl {
   // implicit def coproductBigDataFormat = ???
 
   implicit def familyBigDataFormat[T] = ???
+  implicit object HNilFormat extends BigDataFormat[HNil] {
+    override def label: String = {
+      "HNil"
+    }
+
+    override def toProperties(t: HNil): StringyMap = {
+      new java.util.HashMap[String, AnyRef]()
+    }
+
+    override def fromProperties(m: StringyMap): BigResult[HNil] = {
+      Right(HNil)
+
+    }
+  }
 }
 
 package impl {
